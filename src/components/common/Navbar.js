@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLogout } from '@/hooks/useLogout';
+import ShoppingCart from '../ShoppingCart';
 
 
 const Navbar = () => {
@@ -9,6 +10,7 @@ const Navbar = () => {
   const [openMainMenu, setOpenMainMenu] = useState(false)
   const { logout } = useLogout();
   const { user } = useSelector(state => state.user)
+  const { cart } = useSelector(state => state.cart)
 
   const handleOpenMainMenu = () => {
     setOpenMainMenu(!openMainMenu)
@@ -62,10 +64,10 @@ const Navbar = () => {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/"><img className="block h-8 w-auto lg:hidden" src="/ninja.png" alt="Your Company" /></Link>
-              <Link href="/"><img className="hidden h-8 w-auto lg:block" src="/ninja.png" alt="Your Company" /></Link>
+              <Link href="/"><img className="block h-12 w-auto lg:hidden" src="/images/trendyrtw.png" alt="Your Company" /></Link>
+              <Link href="/"><img className="hidden h-12 w-auto lg:block" src="/images/trendyrtw.png" alt="Your Company" /></Link>
             </div>
-            <div className="hidden sm:ml-6 sm:block">
+            <div className="hidden sm:ml-6 sm:block self-center">
               <div className="flex space-x-4">
                 {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
                 <Link href="/ninjas" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Ninja List</Link>
@@ -85,9 +87,9 @@ const Navbar = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
               </svg>
             </button>
-
+            {user && <ShoppingCart />}
             {/* <!-- Profile dropdown --> */}
-            <div className="relative ml-3" onClick={handleOpenUserMenu} onBlur={handleBlurUserMenu}>
+            <div className="relative ml-5" onClick={handleOpenUserMenu} onBlur={handleBlurUserMenu}>
               {user ?
                 (
                   <div>
@@ -116,13 +118,15 @@ const Navbar = () => {
                 )
               }
               {openUser && user && (
-                <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-600 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                  {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
-                  <span className="block px-4 py-2 text-sm text-gray-300 border-b border-gray-500 min-w-full">{user.email}</span>
-                  <Link href="" className="block px-4 py-2 text-sm text-gray-300" role="menuitem" tabindex="-1" id="user-menu-item-0">My Profile</Link>
-                  <Link href="" className="block px-4 py-2 text-sm text-gray-300" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</Link>
-                  <Link href="" onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-300" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</Link>
-                </div>
+                <>
+                  <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-600 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
+                    {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
+                    <span className="block px-4 py-2 text-sm text-gray-300 border-b border-gray-500 min-w-full">{user.email}</span>
+                    <Link href="" className="block px-4 py-2 text-sm text-gray-300" role="menuitem" tabIndex="-1" id="user-menu-item-0">My Profile</Link>
+                    <Link href="" className="block px-4 py-2 text-sm text-gray-300" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</Link>
+                    <Link href="" onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-300" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</Link>
+                  </div>
+                </>
               )}
             </div>
           </div>

@@ -1,8 +1,9 @@
 import Footer from "./common/Footer";
 import Navbar from "./common/Navbar";
 import { SET_USER } from '@/redux/user';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ShoppingCart from "./ShoppingCart";
 
 const Layout = ({ children }) => {
 
@@ -16,9 +17,9 @@ const Layout = ({ children }) => {
   }, [])
 
   return (
-    <div className="mx-auto min-h-screen">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="mx-auto">
+      <div className="flex-grow">
         {children}
       </div>
       <Footer />
