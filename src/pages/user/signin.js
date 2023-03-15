@@ -73,11 +73,7 @@ const SignIn = () => {
       // await getItemCart()
       getUserCart(token);
       setIsLoading(false)
-
-
-
     }
-
   }
 
   return (

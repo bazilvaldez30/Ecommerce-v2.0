@@ -1,8 +1,6 @@
 import { SET_CART } from "@/redux/cart"
 import { useDispatch, useSelector } from "react-redux"
 
-
-
 // export const getServerSideProps = async () => {
 //   const response = await fetch('https://backendvaldez.onrender.com/cart/checkYourCart', {
 //     headers: {
