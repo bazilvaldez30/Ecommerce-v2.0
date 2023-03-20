@@ -1,10 +1,22 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useLayoutEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const { user } = useSelector(state => state.user)
+  const router = useRouter();
+
+  useLayoutEffect(() => {
+    if (!user) {
+      router.push("/user/signin")
+    }
+  })
+
   return (
     <>
       <Head>

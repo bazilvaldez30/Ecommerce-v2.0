@@ -1,7 +1,8 @@
 import { SET_USER } from "@/redux/user";
-import { useState } from "react"
+import { useState, useLayoutEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import Link from 'next/link'
+import { useRouter } from "next/router";
 
 const Signup = () => {
 
@@ -12,6 +13,7 @@ const Signup = () => {
   const [error, setError] = useState(null);
   const [loading, setIsLoading] = useState(null);
   const { user } = useSelector(state => state.user);
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const handleSignup = async (e) => {
@@ -38,6 +40,12 @@ const Signup = () => {
       setIsLoading(false)
     }
   }
+
+  useLayoutEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  })
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">

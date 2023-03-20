@@ -55,11 +55,11 @@ const ShoppingCart = () => {
   return (
     <>
       <div className="relative ml-3">
-        <button onClick={() => setIsCartOpen(!isCartOpen)}>
+        <button className='bg-gray-500 bg-opacity-30 p-2 py-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800' onClick={() => setIsCartOpen(!isCartOpen)}>
           <ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
         </button>
         {productCount > 0 && (
-          <span className="absolute bottom-5 left-4 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+          <span className="absolute bottom-6 left-6 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
             {productCount}
           </span>
         )}

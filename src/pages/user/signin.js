@@ -1,6 +1,7 @@
 import { SET_USER } from "@/redux/user";
-import { useState } from "react"
+import { useEffect, useLayoutEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { useGetUserCart } from "@/hooks/useGetUserCart";
 
@@ -47,6 +48,7 @@ const SignIn = () => {
   const { user } = useSelector(state => state.user);
   const dispatch = useDispatch();
   const { getUserCart } = useGetUserCart();
+  const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -75,6 +77,12 @@ const SignIn = () => {
       setIsLoading(false)
     }
   }
+
+  useLayoutEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  })
 
   return (
 
