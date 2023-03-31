@@ -17,6 +17,12 @@ export default function Home() {
     }
   })
 
+  fetch('/api/hello')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); // Outputs { name: 'John Doe' } to the console
+  });
+
   return (
     <>
       <Head>

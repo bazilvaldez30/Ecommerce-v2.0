@@ -31,12 +31,15 @@ const Ninjas = ({ productsFetched }) => {
       <div className="bg-gray-900">
         <div className="container mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-8xl lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-gray-300">Customers also purchased</h2>
+          <button class="px-4 py-1 rounded-3xl transition ease-in delay-150 bg-blue-500 hover:-translate-y-0 hover:scale-110 hover:bg-indigo-500 duration-300">
+            Save Changes
+          </button>
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products && products.map(product => (
               <Link href={`/ninjas/${product._id}`} key={product._id}>
                 <div className="group relative">
 
-                  <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-96">
+                  <div className="shadow-2xl shadow-cyan-500/50 min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-96">
                     <img src={`/${product.path}`} alt="Front of men&#039;s Basic Tee in black." className="h-full w-full object-cover object-center lg:h-full lg:w-full" />
                   </div>
 

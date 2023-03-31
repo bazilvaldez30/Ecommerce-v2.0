@@ -52,13 +52,39 @@ const SignIn = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault()
-    const response = await fetch(`https://backendvaldez.onrender.com/users/login`, {
+    // const response = await fetch(`https://backendvaldez.onrender.com/users/login`, {
+    //   method: 'POST',
+    //   body: JSON.stringify({ email, password }),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   }
+    // })
+    // const json = await response.json();
+    // const token = json.token
+    // if (!response.ok) {
+    //   setIsLoading(false)
+    //   setError(json.error)
+    //   console.log(json.error)
+    // }
+    // if (response.ok) {
+    //   console.log(json)
+    //   // save the user to local storage
+    //   localStorage.setItem('user', JSON.stringify(json))
+    //   // update the auth context
+    //   dispatch(SET_USER(json))
+    //   // await getItemCart()
+    //   getUserCart(token);
+    //   setIsLoading(false)
+    // }
+
+
+    const response = await fetch(`/api/signin`, {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: {
         'Content-Type': 'application/json',
       }
-    })
+    });
     const json = await response.json();
     const token = json.token
     if (!response.ok) {
