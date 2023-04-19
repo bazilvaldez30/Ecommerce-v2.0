@@ -17,12 +17,6 @@ export default function Home() {
     }
   })
 
-  fetch('/api/hello')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data); // Outputs { name: 'John Doe' } to the console
-  });
-
   return (
     <>
       <Head>
@@ -35,7 +29,7 @@ export default function Home() {
         <p className='text-white'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, ducimus. Ullam eaque eos provident, natus atque sed deserunt, voluptas libero officia porro tempora dolores perferendis laboriosam ut nemo recusandae reprehenderit.</p>
         <p className='text-white'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis iste officia vel? Blanditiis fuga suscipit placeat vitae, cumque sapiente aliquam repellat illum ipsum, vel nisi unde, debitis ullam quibusdam. Aliquam?</p>
 
-        <Link href="/ninjas" className='block w-36 py-2 mx-auto my-5 bg-sky-600 rounded text-white text-center'>See Ninja Listing</Link>
+        <Link href="/products" className='block w-36 py-2 mx-auto my-5 bg-sky-600 rounded text-white text-center'>See Ninja Listing</Link>
 
       </div>
     </>

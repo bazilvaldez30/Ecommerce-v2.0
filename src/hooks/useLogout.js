@@ -9,7 +9,8 @@ export const useLogout = () => {
 
   const logout = () => {
     localStorage.removeItem("user");
-    dispatch(LOGOUT_USER(), RESET_CART())
+    dispatch(LOGOUT_USER())
+    dispatch(RESET_CART())
     console.log(user)
     console.log(cart)
   }

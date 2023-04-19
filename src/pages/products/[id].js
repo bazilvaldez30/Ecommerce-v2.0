@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import { formatCurrency } from '@/utilities/formatCurrency';
+import { useAddToCart } from '@/hooks/useAddToCart';
 
 
 export const getStaticPaths = async () => {
   const response = await fetch('https://backendvaldez.onrender.com/products/allActiveProducts');
   const products = await response.json();
+
 
   const paths = products.map(product => {
     return {
@@ -94,6 +96,12 @@ function classNames(...classes) {
 const ProductDetails = ({ product }) => {
   const [selectedColor, setSelectedColor] = useState(testProduct.colors[0])
   const [selectedSize, setSelectedSize] = useState(testProduct.sizes[2])
+  const { addToCart } = useAddToCart();
+
+  const handleAddToCart = (e, productId) => {
+    e.preventDefault()
+    addToCart(productId);
+  }
 
   console.log(product)
   return (
@@ -309,10 +317,10 @@ const ProductDetails = ({ product }) => {
                 </div>
 
                 <button
-                  type="submit"
+                  onClick={(e) => handleAddToCart(e, product._id)}
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                  Add to bag
+                  Add to Cart
                 </button>
               </form>
             </div>

@@ -1,8 +1,10 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useGetUserCart } from '@/hooks/useGetUserCart'
+import { SET_CART } from '@/redux/cart'
+import { formatCurrency } from '@/utilities/formatCurrency'
 
 // const products = [
 //   {
@@ -36,12 +38,14 @@ const ShoppingCart = () => {
   const [productCount, setProductCount] = useState(0);
   const { getUserCart } = useGetUserCart();
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
     getUserCart(user.token);
   }, [user])
 
   useEffect(() => {
-    if (cart) {
+    if (cart?.product) {
       setProductCount(cart.product.length)
     }
   }, [cart])
@@ -50,6 +54,22 @@ const ShoppingCart = () => {
 
   if (cart) {
     products = cart.product;
+  }
+
+  const removeSingleCartProduct = async (productId) => {
+    const response = await fetch(`https://backendvaldez.onrender.com/cart/removeProduct/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${user.token}`
+      }
+    });
+
+    const json = await response.json();
+    if (response.ok) {
+      console.log(json)
+      dispatch(SET_CART(json))
+    }
   }
 
   return (
@@ -113,7 +133,7 @@ const ShoppingCart = () => {
                             <ul role="list" className="-my-6 divide-y divide-gray-200">
                               {products && products.map((product) => (
                                 <li key={product.productId} className="flex py-6">
-                                  <div className="h-24 w-19 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                  <div onClick={() => console.log("EQWEQ")} className="h-24 w-19 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <img
                                       src={`/${product.path}`}
                                       alt={product.imageAlt}
@@ -127,7 +147,7 @@ const ShoppingCart = () => {
                                         <h3>
                                           <a href={product.href}>{product.productName}</a>
                                         </h3>
-                                        <p className="ml-4">{product.price}</p>
+                                        <p className="ml-4">{formatCurrency(product.price)}</p>
                                       </div>
                                       <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                                     </div>
@@ -136,6 +156,7 @@ const ShoppingCart = () => {
 
                                       <div className="flex">
                                         <button
+                                          onClick={() => removeSingleCartProduct(product.productId)}
                                           type="button"
                                           className="font-medium text-indigo-600 hover:text-indigo-500"
                                         >

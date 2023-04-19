@@ -18,7 +18,7 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault()
-    const response = await fetch(`https://backendvaldez.onrender.com/users/register`, {
+    const response = await fetch(`/api/signup`, {
       method: 'POST',
       body: JSON.stringify({ email, password, confirmpassword: confirmPassword }),
       headers: {
