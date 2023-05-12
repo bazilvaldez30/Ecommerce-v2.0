@@ -124,7 +124,7 @@ const Navbar = () => {
                     <span className="block px-4 py-2 text-sm text-gray-300 border-b border-gray-500 min-w-full">{user.email}</span>
                     <Link href="" className="block px-4 py-2 text-sm text-gray-300" role="menuitem" tabIndex="-1" id="user-menu-item-0">My Profile</Link>
                     <Link href="" className="block px-4 py-2 text-sm text-gray-300" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</Link>
-                    <Link href="" onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-300" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</Link>
+                    <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-300" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</button>
                   </div>
                 </>
               )}

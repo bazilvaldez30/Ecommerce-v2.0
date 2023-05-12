@@ -3,12 +3,13 @@ import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import { formatCurrency } from '@/utilities/formatCurrency';
 import { useAddToCart } from '@/hooks/useAddToCart';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 
 export const getStaticPaths = async () => {
   const response = await fetch('https://backendvaldez.onrender.com/products/allActiveProducts');
   const products = await response.json();
-
 
   const paths = products.map(product => {
     return {
@@ -21,6 +22,7 @@ export const getStaticPaths = async () => {
     fallback: false
   }
 }
+
 
 export const getStaticProps = async (context) => {
   const id = context.params.id;
@@ -94,16 +96,28 @@ function classNames(...classes) {
 }
 
 const ProductDetails = ({ product }) => {
-  const [selectedColor, setSelectedColor] = useState(testProduct.colors[0])
-  const [selectedSize, setSelectedSize] = useState(testProduct.sizes[2])
+  const [selectedColor, setSelectedColor] = useState(testProduct.colors[0]);
+  const [selectedSize, setSelectedSize] = useState(testProduct.sizes[2]);
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const { user } = useSelector(state => state.user);
   const { addToCart } = useAddToCart();
+
+  const router = useRouter();
 
   const handleAddToCart = (e, productId) => {
     e.preventDefault()
+    if (!user) {
+      router.push('/user/signin');
+      return;
+    }
+
     addToCart(productId);
   }
 
   console.log(product)
+
+  const showSeeMoreButton = product.description.length > 600;
+
   return (
     <>
       <div className="bg-white">
@@ -186,7 +200,14 @@ const ProductDetails = ({ product }) => {
                 <div>
                   <h3 className="sr-only">Description</h3>
                   <div className="space-y-6 mt-5">
-                    <p className="text-base text-gray-900">{product.description}</p>
+                    <p className="text-base text-gray-900 block overflow-hidden" style={{ maxHeight: showFullDescription ? "none" : "9em" }}>
+                      {product.description}
+                    </p>
+                    {showSeeMoreButton && !showFullDescription && (
+                      <button className="text-sm text-gray-500 hover:text-gray-700" onClick={() => setShowFullDescription(true)}>
+                        See More
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

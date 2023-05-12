@@ -1,4 +1,5 @@
 import { SET_PRODUCTS } from "@/redux/products"
+import { formatCurrency } from "@/utilities/formatCurrency"
 import Head from "next/head"
 import Link from "next/link"
 import { useEffect } from "react"
@@ -13,7 +14,7 @@ export const getServerSideProps = async () => {
 }
 
 
-const Ninjas = ({ productsFetched }) => {
+const Products = ({ productsFetched }) => {
 
   const { products } = useSelector(state => state.products);
   const dispatch = useDispatch()
@@ -28,12 +29,12 @@ const Ninjas = ({ productsFetched }) => {
       <Head>
         <title>Products List</title>
       </Head>
-      <div className="bg-gray-900">
+      <div className="">
         <div className="container mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-8xl lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-gray-300">Customers also purchased</h2>
-          <button class="px-4 py-1 rounded-3xl transition ease-in delay-150 bg-blue-500 hover:-translate-y-0 hover:scale-110 hover:bg-indigo-500 duration-300">
+          {/* <button class="px-4 py-1 rounded-3xl transition ease-in delay-150 bg-blue-500 hover:-translate-y-0 hover:scale-110 hover:bg-indigo-500 duration-300">
             Save Changes
-          </button>
+          </button> */}
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products && products.map(product => (
               <Link href={`/products/${product._id}`} key={product._id}>
@@ -43,15 +44,15 @@ const Ninjas = ({ productsFetched }) => {
                     <img src={`/${product.path}`} alt="Front of men&#039;s Basic Tee in black." className="h-full w-full object-cover object-center lg:h-full lg:w-full" />
                   </div>
 
-                  <div className="mt-4 flex justify-between">
-                    <div>
+                  <div className="mt-4 flex">
+                    <div className="basis-8/12">
                       <h3 className="text-sm text-gray-300">
                         <span aria-hidden="true" className="absolute inset-0"></span>
                         {product.name}
                       </h3>
                       <p className="mt-1 text-sm text-gray-400">stocks: {product.stocks}</p>
                     </div>
-                    <p className="text-sm font-medium text-gray-400">P{product.price}</p>
+                    <p className="text-sm font-medium text-gray-400 text-right basis-4/12">{formatCurrency(product.price)}</p>
                   </div>
                 </div>
               </Link>
@@ -63,4 +64,4 @@ const Ninjas = ({ productsFetched }) => {
   );
 };
 
-export default Ninjas;
+export default Products;
